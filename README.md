@@ -71,13 +71,6 @@ pip install -r requirements.txt
 
 To generate the adversarial reversal dataset using the Multi-Agent pipeline:
 
-```bash
-python data_gen/main_pipeline.py \
-    --input_file data/seed_prompts.json \
-    --output_dir data/processed \
-    --agents_config configs/agents.yaml
-
-```
 
 **Pipeline Stages:**
 
@@ -95,19 +88,7 @@ We employ **Safety Contrastive Regularization (SCR)** alongside standard SFT. Th
 
 To run the fine-tuning (default backbone: **Qwen2.5-7B** ):
 
-```bash
-accelerate launch train.py \
-    --model_name_or_path Qwen/Qwen2.5-7B \
-    --data_path data/processed/arg_pairs.json \
-    --output_dir checkpoints/arg-qwen-7b \
-    --use_scr True \
-    --lambda_dir 1.0 \
-    --lambda_cons 0.5 \
-    --lambda_mi 0.1 \
-    --lora_rank 8 \
-    --num_train_epochs 3
 
-```
 
 **Loss Components:**
 
@@ -152,38 +133,3 @@ Comparison based on Qwen2.5-7B backbone:
 | **ARG (Ours)** | **6.5%** | **2.5%** | **7.85** |
 
 > **Note:** ARG achieves a pareto-optimal balance, significantly lowering attack success rates without the high "safety tax" (over-refusal) seen in RLHF methods.
-
-## 📂 Project Structure
-
-```text
-.
-├── assets/              # Diagrams and figures
-├── configs/             # Configuration files for Agents and LoRA
-├── data_gen/            # Multi-agent pipeline code
-│   ├── agents.py        # Implementation of Analysis, Reversal, Answer, Validation agents
-│   └── strategies.py    # Injection, Goal Hijacking, Sanitization logic
-├── train/               # Training scripts
-│   ├── scr_loss.py      # Implementation of SCR Loss (Directional, Consistency, MI)
-│   └── trainer.py       # Custom HuggingFace Trainer
-├── eval/                # Evaluation scripts for HarmBench, XSTest, etc.
-└── requirements.txt     # Python dependencies
-
-```
-
-## 📜 Citation
-
-If you find this work helpful, please cite our paper:
-
-```bibtex
-@inproceedings{arg2026,
-  title={Adversarial Reversal Generation: A Data-Centric Strategy to Balance Helpfulness and Harmlessness in Large Language Models},
-  author={Anonymous},
-  booktitle={ACL 2026 Submission},
-  year={2026}
-}
-
-```
-
-## 📄 License
-
-This project is licensed under the Apache 2.0 License - see the [LICENSE](https://www.google.com/search?q=LICENSE) file for details.
