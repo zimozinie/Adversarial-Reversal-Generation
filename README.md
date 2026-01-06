@@ -111,16 +111,13 @@ accelerate launch train.py \
 
 **Loss Components:**
 
-* 
-`--lambda_dir`: Controls **Safety Direction Learning** (Geometric Separation).
+* `--lambda_dir`: Controls **Safety Direction Learning** (Geometric Separation).
 
 
-* 
-`--lambda_cons`: Controls **Representation Consistency** (Manifold Regularization).
+* `--lambda_cons`: Controls **Representation Consistency** (Manifold Regularization).
 
 
-* 
-`--lambda_mi`: Controls **Information Separation** (Feature Disentanglement).
+* `--lambda_mi`: Controls **Information Separation** (Feature Disentanglement).
 
 
 
