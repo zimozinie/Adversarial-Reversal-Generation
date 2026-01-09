@@ -1,0 +1,72 @@
+# ARG 默认配置文件
+# 对应论文实验设置
+
+# Model Configuration
+model:
+  model_name: "Qwen/Qwen2.5-7B"
+  hidden_size: 4096
+  device: "cuda"
+  normalize_representations: true
+  representation_layer: -1
+  safety_direction_init: "random"
+  y_attr_dim: 2
+  y_sem_dim: 10
+
+# Training Configuration
+training:
+  # SCR 权重
+  lambda1: 1.0  # L_dir
+  lambda2: 1.0  # L_cons
+  lambda3: 0.5  # L_MI
+  
+  # KL-SFT
+  beta: 0.1
+  use_reference_model: true
+  
+  # Safety Direction
+  alpha: 0.5
+  
+  # Information Separation
+  lambda_info: 1.0
+  
+  # Optimizer
+  learning_rate: 1.0e-5
+  critic_learning_rate: 1.0e-4
+  weight_decay: 0.01
+  optimizer: "adamw"
+  max_grad_norm: 1.0
+  
+  # Training
+  num_epochs: 3
+  batch_size: 8
+  gradient_accumulation_steps: 4
+  warmup_steps: 100
+  
+  # Logging
+  logging_steps: 10
+  save_steps: 500
+  eval_steps: 100
+  
+  # Generation
+  temperature: 1.0
+  max_length: 512
+  max_seq_length: 2048
+  
+  # Output
+  output_dir: "./outputs"
+  checkpoint_dir: "./checkpoints"
+  log_dir: "./logs"
+  
+  # Other
+  seed: 42
+  mixed_precision: "fp16"
+
+# Agent Configuration
+agent:
+  temperature: 0.7
+  max_tokens: 2048
+  similarity_threshold: 0.7
+  validation_mode: "strict"
+  max_retries: 3
+  verbose: true
+
